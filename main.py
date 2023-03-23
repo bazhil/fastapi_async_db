@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import FastAPI, status
 from db import metadata, database, engine, Article
 from schemas import ArticleSchemaIn, ArticleSchema
@@ -22,8 +23,9 @@ async def add_article(article: ArticleSchemaIn):
     query = Article.insert().values(title=article.title, description=article.description)
     last_record_id = await database.execute(query)
 
-    return {**article.dict, 'id': last_record_id}
+    return {**article.dict(), 'id':last_record_id}
 
-@app.get('/articles/')
-async def get_article():
-    return {'message': 'Hello World!'}
+@app.get('/articles/', response_model=List[ArticleSchema])
+async def get_articles():
+    query = Article.select()
+    return await database.fetch_all(query=query)

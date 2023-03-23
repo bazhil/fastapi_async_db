@@ -8,4 +8,5 @@ class ArticleSchemaIn(BaseModel):
 
 class ArticleSchema(BaseModel):
     id: int
-
+    title: str
+    description: str
