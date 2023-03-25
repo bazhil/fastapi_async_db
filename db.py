@@ -14,4 +14,13 @@ Article = Table(
     Column('description', String(500))
 )
 
+Article = Table(
+    'user',
+    metadata,
+    Column('id', Integer, primary_key=True),
+    Column('username', String(20)),
+    Column('password', String(50))
+)
+
+
 database = Database(DATABASE_URL)
