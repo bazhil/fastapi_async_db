@@ -14,7 +14,7 @@ Article = Table(
     Column('description', String(500))
 )
 
-Article = Table(
+User = Table(
     'user',
     metadata,
     Column('id', Integer, primary_key=True),
