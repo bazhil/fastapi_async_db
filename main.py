@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from db import metadata, database, engine
-from articles import router
+import articles, users
 
 
 metadata.create_all(engine)
@@ -17,4 +17,5 @@ async def startup():
     await database.disconnect()
 
 
-app.include_router(router)
+app.include_router(articles.router)
+app.include_router(users.router)
