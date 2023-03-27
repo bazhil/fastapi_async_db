@@ -3,7 +3,9 @@ from schemas import ArticleSchemaIn, ArticleSchema
 from typing import List
 from db import database, Article
 
-router = APIRouter()
+router = APIRouter(
+    tags = ['Articles']
+)
 
 @router.post('/articles/', status_code=status.HTTP_201_CREATED, response_model=ArticleSchema)
 async def add_article(article: ArticleSchemaIn):

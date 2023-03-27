@@ -22,5 +22,4 @@ User = Table(
     Column('password', String(200))
 )
 
-
 database = Database(DATABASE_URL)

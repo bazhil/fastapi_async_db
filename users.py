@@ -5,7 +5,9 @@ from db import database, User
 from passlib.hash import pbkdf2_sha256
 
 
-router = APIRouter()
+router = APIRouter(
+    tags = ['Users']
+)
 
 
 @router.post('/users', status_code=status.HTTP_201_CREATED)

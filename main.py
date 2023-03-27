@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from db import metadata, database, engine
-import articles, users
+import articles, users, auth
 
 
 metadata.create_all(engine)
@@ -19,3 +19,4 @@ async def startup():
 
 app.include_router(articles.router)
 app.include_router(users.router)
+app.include_router(auth.router)
