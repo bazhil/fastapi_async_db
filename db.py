@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, MetaData, String, Table, create_engine
 from databases import Database
 
-DATABASE_URL = 'postgresql://home:123456@localhost/articles_db'
+DATABASE_URL = 'postgresql://home:123456@localhost/articles'
 
 engine = create_engine(DATABASE_URL)
 metadata = MetaData()

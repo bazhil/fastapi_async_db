@@ -3,3 +3,4 @@ sqlalchemy
 databases
 asyncpg
 passlib
+python-jose
