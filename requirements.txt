@@ -4,3 +4,4 @@ databases
 asyncpg
 passlib
 python-jose
+python-multipart

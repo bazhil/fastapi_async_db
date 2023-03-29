@@ -1,14 +1,16 @@
-from fastapi import APIRouter, status, HTTPException
-from schemas import ArticleSchemaIn, ArticleSchema
+from fastapi import APIRouter, status, HTTPException, Depends
+from schemas import ArticleSchemaIn, ArticleSchema, UserSchema
 from typing import List
 from db import database, Article
+from Token import get_current_user
+
 
 router = APIRouter(
     tags = ['Articles']
 )
 
 @router.post('/articles/', status_code=status.HTTP_201_CREATED, response_model=ArticleSchema)
-async def add_article(article: ArticleSchemaIn):
+async def add_article(article: ArticleSchemaIn, current_user: UserSchema = Depends(get_current_user)):
     query = Article.insert().values(title=article.title, description=article.description)
     last_record_id = await database.execute(query)
 
@@ -32,7 +34,7 @@ async def get_details(id: int):
 
 
 @router.put('/articles/{id}', response_model=ArticleSchema)
-async def update_article(id: int, article: ArticleSchemaIn):
+async def update_article(id: int, article: ArticleSchemaIn, current_user: UserSchema = Depends(get_current_user)):
     query = Article.update().where(Article.c.id==id).values(title=article.title, description=article.description)
     await database.execute(query)
 
@@ -40,7 +42,7 @@ async def update_article(id: int, article: ArticleSchemaIn):
 
 
 @router.delete('/articles/{id}', status_code=status.HTTP_204_NO_CONTENT)
-async def delete_article(id: int):
+async def delete_article(id: int, current_user: UserSchema = Depends(get_current_user)):
     query = Article.delete().where(Article.c.id==id)
     await database.execute(query)
 

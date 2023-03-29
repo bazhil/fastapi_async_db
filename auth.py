@@ -1,6 +1,8 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, status, HTTPException, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+
 from schemas import LoginSchema
 from typing import List
 from db import database, Article, User
@@ -13,7 +15,7 @@ router = APIRouter(
 )
 
 @router.post('/login/')
-async def login(request: LoginSchema):
+async def login(request: OAuth2PasswordRequestForm = Depends()):
     query = User.select().where(User.c.username == request.username)
     myuser = await database.fetch_one(query=query)
 
